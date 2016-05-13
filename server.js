@@ -80,7 +80,7 @@ app.post("/drugs", function(req, res) {
  */
 
 app.get("/drugs/:id", function(req, res) {
-  db.collection(DRUGS_COLLECTION).findOne({ _id : new ObjectID(req.params.id) }, function(err, doc) {
+  db.collection(DRUGS_COLLECTION).findOne({ name : new ObjectID(req.params.id) }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get drug");
     } else {
