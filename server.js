@@ -55,6 +55,24 @@ app.get("/drugs", function(req, res){
 });
 
 
+app.post("/drugs", function(req, res) {
+  var newDrug = req.body;
+  newContact.createDate = new Date();
+
+  // if (!(req.body.firstName || req.body.lastName)) {
+  //   handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
+  // }
+
+  db.collection(DRUGS_COLLECTION).insertOne(newDrug, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to create new drug.");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
+  });
+});
+
+
 /*  "/drugs/:id"
  *    GET: find drug by id
  *
