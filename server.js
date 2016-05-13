@@ -57,7 +57,7 @@ app.get("/drugs", function(req, res){
 
 app.post("/drugs", function(req, res) {
   var newDrug = req.body;
-  newContact.createDate = new Date();
+  newDrug.createDate = new Date();
 
   // if (!(req.body.firstName || req.body.lastName)) {
   //   handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
