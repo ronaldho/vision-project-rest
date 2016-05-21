@@ -44,7 +44,7 @@ function handleError(res, reason, message, code) {
  *    GET: finds all drugs
  *
  */
-app.get("/drugs", function(req, res){
+app.get("/api/v1/drugs", function(req, res){
     db.collection(DRUGS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get drugs.");
@@ -79,7 +79,7 @@ app.get("/drugs", function(req, res){
  *
  */
 
-app.get("/drugs/:id", function(req, res) {
+app.get("/api/v1/drugs/:id", function(req, res) {
   db.collection(DRUGS_COLLECTION).findOne({ "name" : req.params.id }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get drug");
