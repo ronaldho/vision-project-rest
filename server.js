@@ -63,7 +63,7 @@ function handleError(res, reason, message, code) {
  *    GET: finds all drugs
  *
  */
-app.get("/drugs", function(req, res){
+app.get("/api/v1/drugs", function(req, res){
     db.collection(DRUGS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get drugs.");
@@ -74,22 +74,22 @@ app.get("/drugs", function(req, res){
 });
 
 
-app.post("/drugs", function(req, res) {
-  var newDrug = req.body;
-  newDrug.createDate = new Date();
-
-  // if (!(req.body.firstName || req.body.lastName)) {
-  //   handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
-  // }
-
-  db.collection(DRUGS_COLLECTION).insertOne(newDrug, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new drug.");
-    } else {
-      res.status(201).json(doc.ops[0]);
-    }
-  });
-});
+// app.post("/drugs", function(req, res) {
+//   var newDrug = req.body;
+//   newDrug.createDate = new Date();
+//
+//   // if (!(req.body.firstName || req.body.lastName)) {
+//   //   handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
+//   // }
+//
+//   db.collection(DRUGS_COLLECTION).insertOne(newDrug, function(err, doc) {
+//     if (err) {
+//       handleError(res, err.message, "Failed to create new drug.");
+//     } else {
+//       res.status(201).json(doc.ops[0]);
+//     }
+//   });
+// });
 
 
 /*  "/drugs/:id"
@@ -98,8 +98,8 @@ app.post("/drugs", function(req, res) {
  *
  */
 
-app.get("/drugs/:id", function(req, res) {
-  db.collection(DRUGS_COLLECTION).findOne({ name : new ObjectID(req.params.id) }, function(err, doc) {
+app.get("/api/v1/drugs/:id", function(req, res) {
+  db.collection(DRUGS_COLLECTION).findOne({ "name" : req.params.id }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get drug");
     } else {
