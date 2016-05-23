@@ -14,22 +14,41 @@ app.use(bodyParser.json());
 var db;
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+var MongoClient = require('mongodb').MongoClient
+    , format = require('util').format;
+MongoClient.connect('mongodb://127.0.0.1:27017/test', function (err, db) {
+    if (err) {
+        throw err;
+    } else {
+        console.log("successfully connected to the database");
+    }
+    //db.close();
 
-  // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
-
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
+    var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
-  });
+  }); 
+
+
 });
+
+
+//mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+//  if (err) {
+//    console.log(err);
+//    process.exit(1);
+//  }
+
+  // Save database object from the callback for reuse.
+//  db = database;
+//  console.log("Database connection ready");
+
+  // Initialize the app.
+//  var server = app.listen(process.env.PORT || 8080, function () {
+//    var port = server.address().port;
+//    console.log("App now running on port", port);
+//  });
+//});
 
 
 // API Routes Below
